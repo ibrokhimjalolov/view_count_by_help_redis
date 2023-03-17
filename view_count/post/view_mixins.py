@@ -11,7 +11,7 @@ class ViewCountMixin:
         fingerprint = self.request.headers.get("fingerprint")
         instance = self.get_object()
         model_name = instance.__class__.__name__
-        uniq_key = f"view_count:{model_name}:{instance.pk}:{fingerprint}"
+        uniq_key = f"unique_prefix:view_count:{model_name}:{instance.pk}:{fingerprint}"
         data = cache.get(uniq_key)
         if not data:
             setattr(instance, self.view_count_field, F(self.view_count_field) + 1)
